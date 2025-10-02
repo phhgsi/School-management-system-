@@ -15,8 +15,16 @@ class Controller {
     }
 
     public function model($model) {
-        require_once '../app/models/' . $model . '.php';
-        return new $model($this->db);
+        // Handle model name variations
+        $modelFile = $model . '.php';
+        $modelPath = BACKEND_PATH . '/app/models/' . $modelFile;
+
+        if (file_exists($modelPath)) {
+            require_once $modelPath;
+            return new $model($this->db);
+        } else {
+            die('Model does not exist: ' . $model);
+        }
     }
 
     public function view($view, $data = []) {

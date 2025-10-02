@@ -21,18 +21,21 @@ class Session {
     }
 
     private function setCookieParams() {
-        $secure = isset($_SERVER['HTTPS']);
-        $httponly = true;
-        $samesite = 'Strict';
+        // Only set cookie parameters if no session is active
+        if (session_status() == PHP_SESSION_NONE) {
+            $secure = isset($_SERVER['HTTPS']);
+            $httponly = true;
+            $samesite = 'Strict';
 
-        session_set_cookie_params([
-            'lifetime' => $this->lifetime,
-            'path' => '/',
-            'domain' => $_SERVER['HTTP_HOST'] ?? '',
-            'secure' => $secure,
-            'httponly' => $httponly,
-            'samesite' => $samesite
-        ]);
+            session_set_cookie_params([
+                'lifetime' => $this->lifetime,
+                'path' => '/',
+                'domain' => $_SERVER['HTTP_HOST'] ?? '',
+                'secure' => $secure,
+                'httponly' => $httponly,
+                'samesite' => $samesite
+            ]);
+        }
     }
 
     public function set($key, $value) {

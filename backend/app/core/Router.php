@@ -96,7 +96,7 @@ class Router {
         }
 
         // Include controller file
-        $controllerFile = BASE_PATH . '/backend/app/controllers/' . $controllerName . '.php';
+        $controllerFile = BACKEND_PATH . '/app/controllers/' . $controllerName . '.php';
         if (!file_exists($controllerFile)) {
             http_response_code(500);
             echo 'Controller not found: ' . $controllerName;

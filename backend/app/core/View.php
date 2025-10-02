@@ -31,18 +31,18 @@ class View {
         ob_start();
 
         // Include view file
-        $viewFile = BASE_PATH . '/backend/app/views/' . $view . '.php';
+        $viewFile = BACKEND_PATH . '/app/views/' . $view . '.php';
         if (file_exists($viewFile)) {
             include $viewFile;
         } else {
-            throw new Exception('View file not found: ' . $viewFile);
+            die('View does not exist: ' . $view);
         }
 
         $content = ob_get_clean();
 
         // Include layout if specified
         if ($this->layout) {
-            $layoutFile = BASE_PATH . '/backend/app/views/layouts/' . $this->layout . '.php';
+            $layoutFile = BACKEND_PATH . '/app/views/layouts/' . $this->layout . '.php';
             if (file_exists($layoutFile)) {
                 ob_start();
                 include $layoutFile;
@@ -61,11 +61,11 @@ class View {
         extract($partialData);
 
         // Include partial file
-        $partialFile = BASE_PATH . '/backend/app/views/partials/' . $partial . '.php';
+        $partialFile = BACKEND_PATH . '/app/views/partials/' . $partial . '.php';
         if (file_exists($partialFile)) {
             include $partialFile;
         } else {
-            throw new Exception('Partial file not found: ' . $partialFile);
+            die('Partial does not exist: ' . $partial);
         }
     }
 
