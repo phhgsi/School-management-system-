@@ -102,6 +102,23 @@ class ApiController extends Controller {
         ]);
     }
 
+    public function getSubjects() {
+        $subjectModel = $this->model('Subject');
+        $classId = $_GET['class_id'] ?? null;
+
+        if ($classId) {
+            $subjects = $subjectModel->getSubjectsByClass($classId);
+        } else {
+            $subjects = $subjectModel->getAll();
+        }
+
+        $this->jsonResponse([
+            'success' => true,
+            'data' => $subjects,
+            'total' => count($subjects)
+        ]);
+    }
+
     public function getDashboardStats() {
         $stats = [];
 

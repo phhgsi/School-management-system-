@@ -137,6 +137,7 @@ $router->addRoute('GET', '/api/teachers', 'ApiController', 'getTeachers');
 $router->addRoute('GET', '/api/classes', 'ApiController', 'getClasses');
 $router->addRoute('GET', '/api/attendance', 'ApiController', 'getAttendance');
 $router->addRoute('GET', '/api/fees', 'ApiController', 'getFees');
+$router->addRoute('GET', '/api/subjects', 'ApiController', 'getSubjects');
 
 // Handle request
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
