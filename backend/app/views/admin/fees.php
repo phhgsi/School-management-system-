@@ -1,22 +1,4 @@
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="page-title">
-                <i class="fas fa-money-bill-wave me-2"></i>Fee Management
-            </h1>
-            <p class="page-subtitle">Manage fee structures, collect payments, and track financial records</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#collectFeeModal">
-                <i class="fas fa-plus me-2"></i>Collect Fee
-            </button>
-            <button class="btn btn-secondary" onclick="exportFinancialReport()">
-                <i class="fas fa-download me-2"></i>Export Report
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Fee Management content will be included in the admin layout -->
 
 <!-- Financial Overview -->
 <div class="row mb-4">

@@ -3,7 +3,9 @@
  * Database Configuration
  */
 
-// Database credentials
+// Database credentials - Using SQLite for development
+define('DB_TYPE', 'sqlite');
+define('DB_FILE', BASE_PATH . '/database/school_management.db');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'school_management');
 define('DB_USER', 'root');

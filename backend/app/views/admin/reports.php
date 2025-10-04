@@ -1,19 +1,4 @@
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="page-title">
-                <i class="fas fa-chart-bar me-2"></i>Reports & Analytics
-            </h1>
-            <p class="page-subtitle">Generate comprehensive reports and analyze school data</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <button class="btn btn-primary" onclick="generateAllReports()">
-                <i class="fas fa-download me-2"></i>Generate All Reports
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Reports & Analytics content will be included in the admin layout -->
 
 <!-- Report Categories -->
 <div class="row mb-4">

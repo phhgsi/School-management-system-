@@ -1,22 +1,4 @@
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="page-title">
-                <i class="fas fa-clipboard-list me-2"></i>Exams & Results
-            </h1>
-            <p class="page-subtitle">Create exams, manage schedules, and track student results</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createExamModal">
-                <i class="fas fa-plus me-2"></i>Create Exam
-            </button>
-            <button class="btn btn-secondary" onclick="exportResults()">
-                <i class="fas fa-download me-2"></i>Export Results
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Exams & Results content will be included in the admin layout -->
 
 <!-- Quick Stats -->
 <div class="row mb-4">

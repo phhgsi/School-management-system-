@@ -245,7 +245,7 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="POST" action="/admin/events/add" enctype="multipart/form-data">
+            <form method="POST" action="/admin/events/create" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($data['csrf_token']); ?>">
 

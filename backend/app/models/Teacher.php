@@ -138,8 +138,8 @@ class Teacher extends Model {
             SELECT attendance_date, status, remarks
             FROM teacher_attendance
             WHERE teacher_id = :teacher_id
-            AND MONTH(attendance_date) = :month
-            AND YEAR(attendance_date) = :year
+            AND strftime('%m', attendance_date) = :month
+            AND strftime('%Y', attendance_date) = :year
             ORDER BY attendance_date
         ");
         $this->db->bind(':teacher_id', $teacherId);
@@ -163,11 +163,31 @@ class Teacher extends Model {
     }
 
     public function assignSubject($teacherId, $subjectId, $classId, $isClassTeacher = false) {
+        // First check if assignment exists
         $this->db->query("
-            INSERT INTO teacher_subjects (teacher_id, subject_id, class_id, is_class_teacher)
-            VALUES (:teacher_id, :subject_id, :class_id, :is_class_teacher)
-            ON DUPLICATE KEY UPDATE is_class_teacher = :is_class_teacher
+            SELECT id FROM teacher_subjects
+            WHERE teacher_id = :teacher_id AND subject_id = :subject_id AND class_id = :class_id
         ");
+        $this->db->bind(':teacher_id', $teacherId);
+        $this->db->bind(':subject_id', $subjectId);
+        $this->db->bind(':class_id', $classId);
+        $existing = $this->db->single();
+
+        if ($existing) {
+            // Update existing assignment
+            $this->db->query("
+                UPDATE teacher_subjects
+                SET is_class_teacher = :is_class_teacher
+                WHERE teacher_id = :teacher_id AND subject_id = :subject_id AND class_id = :class_id
+            ");
+        } else {
+            // Insert new assignment
+            $this->db->query("
+                INSERT INTO teacher_subjects (teacher_id, subject_id, class_id, is_class_teacher)
+                VALUES (:teacher_id, :subject_id, :class_id, :is_class_teacher)
+            ");
+        }
+
         $this->db->bind(':teacher_id', $teacherId);
         $this->db->bind(':subject_id', $subjectId);
         $this->db->bind(':class_id', $classId);

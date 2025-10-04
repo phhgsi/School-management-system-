@@ -193,8 +193,8 @@ class Student extends Model {
             SELECT attendance_date, status, remarks
             FROM attendance
             WHERE student_id = :student_id
-            AND MONTH(attendance_date) = :month
-            AND YEAR(attendance_date) = :year
+            AND strftime('%m', attendance_date) = :month
+            AND strftime('%Y', attendance_date) = :year
             ORDER BY attendance_date
         ");
         $this->db->bind(':student_id', $studentId);

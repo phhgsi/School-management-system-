@@ -1,22 +1,4 @@
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="page-title">
-                <i class="fas fa-user-graduate me-2"></i>Students Management
-            </h1>
-            <p class="page-subtitle">Manage student records, admissions, and academic information</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal">
-                <i class="fas fa-plus me-2"></i>Add New Student
-            </button>
-            <button class="btn btn-secondary" onclick="exportStudents()">
-                <i class="fas fa-download me-2"></i>Export
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Students Management content will be included in the admin layout -->
 
 <!-- Statistics Cards -->
 <div class="row mb-4">

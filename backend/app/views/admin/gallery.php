@@ -1,22 +1,4 @@
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="page-title">
-                <i class="fas fa-images me-2"></i>Gallery Management
-            </h1>
-            <p class="page-subtitle">Upload, organize, and manage school photos and videos</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                <i class="fas fa-upload me-2"></i>Upload Media
-            </button>
-            <button class="btn btn-secondary" onclick="createAlbum()">
-                <i class="fas fa-folder-plus me-2"></i>Create Album
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Gallery Management content will be included in the admin layout -->
 
 <!-- Quick Stats -->
 <div class="row mb-4">

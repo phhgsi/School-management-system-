@@ -1,22 +1,4 @@
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="page-title">
-                <i class="fas fa-school me-2"></i>Classes & Subjects
-            </h1>
-            <p class="page-subtitle">Manage academic structure, classes, sections, and subject assignments</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addClassModal">
-                <i class="fas fa-plus me-2"></i>Add New Class
-            </button>
-            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
-                <i class="fas fa-book me-2"></i>Add Subject
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Classes & Subjects content will be included in the admin layout -->
 
 <!-- Statistics Cards -->
 <div class="row mb-4">
@@ -192,15 +174,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            // Get subjects for all classes (this would typically be in the controller)
-                            $subjects = [];
-                            foreach ($data['classes'] as $class) {
-                                // In a real implementation, you'd fetch subjects for each class
-                                $subjects = array_merge($subjects, []);
-                            }
-
-                            if (empty($subjects)): ?>
+                            <?php if (!empty($data['subjects'])): ?>
                                 <tr>
                                     <td colspan="8" class="text-center py-4">
                                         <i class="fas fa-book fa-2x text-muted mb-3"></i>
@@ -208,11 +182,11 @@
                                     </td>
                                 </tr>
                             <?php else: ?>
-                                <?php foreach ($subjects as $subject): ?>
+                                <?php foreach ($data['subjects'] as $subject): ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($subject['subject_name']); ?></td>
                                         <td><?php echo htmlspecialchars($subject['subject_code']); ?></td>
-                                        <td><?php echo htmlspecialchars($subject['class_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($subject['class_name'] . ' - ' . $subject['class_section']); ?></td>
                                         <td><?php echo htmlspecialchars($subject['teacher_name'] ?? 'Not Assigned'); ?></td>
                                         <td><?php echo htmlspecialchars($subject['max_marks']); ?></td>
                                         <td><?php echo htmlspecialchars($subject['pass_marks']); ?></td>

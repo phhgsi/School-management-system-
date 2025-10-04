@@ -17,7 +17,16 @@ class Database {
         $this->stmt = null;
     }
 
-    public function connect($host, $dbname, $username, $password) {
+    public function connect($host, $dbname, $username = '', $password = '') {
+        // Check if using SQLite
+        if (defined('DB_TYPE') && DB_TYPE === 'sqlite') {
+            $this->connectSQLite();
+        } else {
+            $this->connectMySQL($host, $dbname, $username, $password);
+        }
+    }
+
+    private function connectMySQL($host, $dbname, $username, $password) {
         $this->host = $host;
         $this->dbname = $dbname;
         $this->username = $username;
@@ -32,6 +41,20 @@ class Database {
             $this->connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         } catch(PDOException $e) {
             throw new Exception("Connection failed: " . $e->getMessage());
+        }
+    }
+
+    private function connectSQLite() {
+        $db_file = defined('DB_FILE') ? DB_FILE : BASE_PATH . '/database/school_management.db';
+
+        try {
+            $this->connection = new PDO("sqlite:$db_file");
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            // Enable foreign key constraints for SQLite
+            $this->connection->exec("PRAGMA foreign_keys = ON");
+        } catch(PDOException $e) {
+            throw new Exception("SQLite connection failed: " . $e->getMessage());
         }
     }
 

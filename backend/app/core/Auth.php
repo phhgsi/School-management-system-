@@ -144,7 +144,7 @@ class Auth {
     }
 
     private function updateLastLogin($userId) {
-        $this->db->query("UPDATE users SET last_login = NOW() WHERE id = :id");
+        $this->db->query("UPDATE users SET last_login = datetime('now') WHERE id = :id");
         $this->db->bind(':id', $userId);
         $this->db->execute();
     }

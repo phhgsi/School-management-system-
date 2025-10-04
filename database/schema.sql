@@ -6,37 +6,30 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
--- Create database
-CREATE DATABASE IF NOT EXISTS `school_management` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `school_management`;
+-- SQLite Database Schema for School Management System
 
 -- Users table
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `role` enum('admin','teacher','student','parent','cashier') NOT NULL DEFAULT 'student',
-  `status` enum('active','inactive','suspended') NOT NULL DEFAULT 'active',
-  `email_verified` tinyint(1) NOT NULL DEFAULT 0,
-  `phone` varchar(15) DEFAULT NULL,
-  `profile_image` varchar(255) DEFAULT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `login_attempts` int(11) NOT NULL DEFAULT 0,
-  `locked_until` datetime DEFAULT NULL,
-  `reset_token` varchar(255) DEFAULT NULL,
-  `reset_expiry` datetime DEFAULT NULL,
-  `remember_token` varchar(255) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  KEY `role` (`role`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL,
+  role TEXT NOT NULL DEFAULT 'student' CHECK (role IN ('admin','teacher','student','parent','cashier')),
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active','inactive','suspended')),
+  email_verified INTEGER NOT NULL DEFAULT 0,
+  phone TEXT,
+  profile_image TEXT,
+  last_login TEXT,
+  login_attempts INTEGER NOT NULL DEFAULT 0,
+  locked_until TEXT,
+  reset_token TEXT,
+  reset_expiry TEXT,
+  remember_token TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 -- Roles and permissions table
 CREATE TABLE `roles` (

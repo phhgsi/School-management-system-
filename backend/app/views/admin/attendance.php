@@ -1,22 +1,4 @@
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="page-title">
-                <i class="fas fa-calendar-check me-2"></i>Attendance Management
-            </h1>
-            <p class="page-subtitle">Track and manage student and teacher attendance records</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#markAttendanceModal">
-                <i class="fas fa-plus me-2"></i>Mark Attendance
-            </button>
-            <button class="btn btn-secondary" onclick="exportAttendance()">
-                <i class="fas fa-download me-2"></i>Export Report
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Attendance Management content will be included in the admin layout -->
 
 <!-- Quick Stats -->
 <div class="row mb-4">
@@ -160,7 +142,7 @@
                     <?php if (!empty($data['attendance'])): ?>
                         <?php foreach ($data['attendance'] as $attendance): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($attendance['student_name']); ?></td>
+                                <td><?php echo htmlspecialchars($attendance['first_name'] . ' ' . $attendance['last_name']); ?></td>
                                 <td><?php echo htmlspecialchars($attendance['class_name']); ?></td>
                                 <td><?php echo htmlspecialchars($attendance['section']); ?></td>
                                 <td><?php echo date('d/m/Y', strtotime($attendance['attendance_date'])); ?></td>
@@ -170,7 +152,7 @@
                                     </span>
                                 </td>
                                 <td><?php echo htmlspecialchars($attendance['subject_name'] ?? 'All Subjects'); ?></td>
-                                <td><?php echo htmlspecialchars($attendance['teacher_name']); ?></td>
+                                <td>System</td>
                                 <td><?php echo htmlspecialchars($attendance['remarks'] ?? '-'); ?></td>
                                 <td>
                                     <div class="btn-group" role="group">
@@ -287,21 +269,27 @@
         studentsList.innerHTML = '<div class="text-center"><div class="spinner"></div> Loading students...</div>';
 
         // Fetch students via AJAX
-        fetch(`/api/students/class/${classId}`)
+        fetch(`/api/attendance/students?class_id=${classId}&date=${document.getElementById('attendance_date').value}`)
             .then(response => response.json())
             .then(data => {
+                if (data.error) {
+                    studentsList.innerHTML = '<p class="text-danger">' + data.error + '</p>';
+                    return;
+                }
+
                 let html = '<div class="mb-3"><label class="form-label">Mark Attendance for Students:</label></div>';
                 html += '<div class="table-responsive"><table class="table table-sm"><thead><tr><th>Student Name</th><th>Roll No.</th><th>Present</th><th>Absent</th><th>Late</th><th>Remarks</th></tr></thead><tbody>';
 
                 data.forEach(student => {
+                    const currentStatus = student.current_status || 'present';
                     html += `
                         <tr>
-                            <td>${student.first_name} ${student.last_name}</td>
+                            <td>${student.name}</td>
                             <td>${student.roll_number}</td>
-                            <td><input type="radio" name="attendance[${student.id}]" value="present" checked></td>
-                            <td><input type="radio" name="attendance[${student.id}]" value="absent"></td>
-                            <td><input type="radio" name="attendance[${student.id}]" value="late"></td>
-                            <td><input type="text" name="remarks[${student.id}]" class="form-control form-control-sm" placeholder="Optional remarks"></td>
+                            <td><input type="radio" name="attendance[${student.id}]" value="present" ${currentStatus === 'present' ? 'checked' : ''}></td>
+                            <td><input type="radio" name="attendance[${student.id}]" value="absent" ${currentStatus === 'absent' ? 'checked' : ''}></td>
+                            <td><input type="radio" name="attendance[${student.id}]" value="late" ${currentStatus === 'late' ? 'checked' : ''}></td>
+                            <td><input type="text" name="remarks[${student.id}]" class="form-control form-control-sm" placeholder="Optional remarks" value="${student.current_remarks || ''}"></td>
                         </tr>
                     `;
                 });

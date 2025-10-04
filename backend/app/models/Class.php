@@ -56,7 +56,7 @@ class ClassModel extends Model {
     }
 
     public function createClass($data) {
-        $data['academic_year'] = CURRENT_ACADEMIC_YEAR;
+        $data['academic_year'] = defined('CURRENT_ACADEMIC_YEAR') ? CURRENT_ACADEMIC_YEAR : '2024-2025';
         return $this->create($data);
     }
 

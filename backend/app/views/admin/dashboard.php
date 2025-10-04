@@ -1,19 +1,4 @@
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="page-title">
-                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-            </h1>
-            <p class="page-subtitle">Welcome back, <?php echo htmlspecialchars($this->auth->getUserName()); ?>! Here's your school overview.</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <button class="btn btn-primary" onclick="refreshDashboard()">
-                <i class="fas fa-sync-alt me-2"></i>Refresh
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Dashboard content will be included in the admin layout -->
 
 <!-- Statistics Cards -->
 <div class="row mb-4">
